@@ -33,6 +33,8 @@ public class TestChapter4 {
         java8map(menu);
         System.out.println("-----------");
         java8beanToString(menu);
+        System.out.println("-----------");
+        java8Find(menu);
     }
 
     /**
@@ -90,5 +92,11 @@ public class TestChapter4 {
     public static void java8beanToString(List<Dish> menu) {
         String collect = menu.stream().map(Dish::getName).collect(Collectors.joining(","));
         System.out.println(collect);
+    }
+
+
+    //查找元素
+    public static void java8Find(List<Dish> menu) {
+        menu.stream().filter(Dish::isVegetarian).findAny().ifPresent(d-> System.out.println(d.getName()));
     }
 }
