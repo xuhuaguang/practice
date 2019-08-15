@@ -3,6 +3,7 @@ package com.rxlm.practice.util;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @ClassName: Solution
@@ -11,7 +12,7 @@ import java.util.List;
  * @CreateDate: 2019/7/2 10:48
  * @Version: 1.0
  */
-public class Solution {
+public class Solu {
 
     public List<List<Integer>> permute(int[] nums){
         int[] used = new int[nums.length];
@@ -36,12 +37,12 @@ public class Solution {
             }
         }
     }
-
     public static void main(String[] args) {
         String[] nums = {"a", "b", "c"};
-        Solution s = new Solution();
+        Solu s = new Solu();
         List<List<String>> permutes = s.permute(nums);
         System.out.println(permutes.toString());
+        System.out.println(UUID.randomUUID().toString().replace("-",""));
     }
     //第二种
     List<List<String>> lists = new LinkedList<>();
@@ -68,4 +69,5 @@ public class Solution {
             }
         }
     }
+
 }
