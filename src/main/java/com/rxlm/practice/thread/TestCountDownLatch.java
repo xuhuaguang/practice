@@ -10,41 +10,31 @@ import java.util.concurrent.CountDownLatch;
  * @Version: 1.0
  */
 public class TestCountDownLatch {
-    public static void main(String[] args) {
-        final CountDownLatch latch = new CountDownLatch(2);
-        new Thread(){
-            public void run() {
-                try {
-                    System.out.println("子线程" + Thread.currentThread().getName() +"正在执行");
-                    Thread.sleep(3000);
-                    System.out.println("子线程" + Thread.currentThread().getName() +"执行完毕");
-                    latch.countDown();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }.start();
+    public static void main(String[] args) throws InterruptedException{
+        CountDownLatch latch = new CountDownLatch(5);
+        for (int i = 0; i < 5; i++) {
+            new Thread(new readNum(i,latch)).start();
+        }
+        latch.await();
+        System.out.println("线程结束走这-----");
+    }
 
-        new Thread(){
-            public void run() {
-                try {
-                    System.out.println("子线程" + Thread.currentThread().getName() +"正在执行");
-                    Thread.sleep(3000);
-                    System.out.println("子线程" + Thread.currentThread().getName() +"执行完毕");
-                    latch.countDown();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }.start();
+    static class readNum implements Runnable{
+        private int id;
+        private CountDownLatch latch;
 
-        try {
-            //System.out.println("等待2个子线程执行完毕...");
-            latch.await();
-            System.out.println("2个子线程已经执行完毕");
-            System.out.println("继续执行主线程");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        public readNum(int id, CountDownLatch latch) {
+            this.id = id;
+            this.latch = latch;
+        }
+
+        @Override
+        public void run() {
+            synchronized (latch) {
+                System.out.println("id:"+id);
+                latch.countDown();
+                System.out.println("线程组任务"+id+"结束，其他任务继续");
+            }
         }
     }
 }
