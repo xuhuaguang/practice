@@ -15,9 +15,10 @@ public class TestThreadPoolExecutor {
         //此三种方式，阿里强制不让使用，因为newFixedThreadPool和newSingleThreadExecutor底层阻塞队列用的是LinkedBlockingQueue,
         //它虽然是有界的，但范围为Integer.MAX_VALUE,跟无界没有什么区别。
         //newCachedThreadPool底层的最大线程数Integer.MAX_VALUE
-        //ExecutorService threadPool = Executors.newFixedThreadPool(5);
-        //ExecutorService threadPool = Executors.newCachedThreadPool();
-        //ExecutorService threadPool = Executors.newSingleThreadExecutor();
+        ExecutorService threadPool1 = Executors.newFixedThreadPool(5);
+        ExecutorService threadPool2 = Executors.newCachedThreadPool();
+        ExecutorService threadPool3 = Executors.newSingleThreadExecutor();
+        ExecutorService threadPool4 = Executors.newScheduledThreadPool(4);
 
         //阿里推荐的
         ThreadPoolExecutor threadPool = new ThreadPoolExecutor(
